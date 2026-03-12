@@ -1,0 +1,178 @@
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/assets/fonts/PlayfairDisplay[wght].woff2") format("woff2");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit[wght].woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono[wght].woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* CosmicWave Radio — Retro Amber Dark Theme */
+    --background: 0.09 0.01 32;
+    --foreground: 0.9 0.018 75;
+
+    --card: 0.13 0.012 30;
+    --card-foreground: 0.9 0.018 75;
+
+    --popover: 0.13 0.012 30;
+    --popover-foreground: 0.9 0.018 75;
+
+    /* Amber/gold primary */
+    --primary: 0.76 0.155 60;
+    --primary-foreground: 0.08 0.008 30;
+
+    /* Slightly lighter card for secondary */
+    --secondary: 0.18 0.015 30;
+    --secondary-foreground: 0.9 0.018 75;
+
+    --muted: 0.17 0.01 30;
+    --muted-foreground: 0.52 0.015 70;
+
+    /* Teal accent */
+    --accent: 0.68 0.11 196;
+    --accent-foreground: 0.09 0.01 32;
+
+    --destructive: 0.62 0.22 25;
+    --destructive-foreground: 0.9 0.018 75;
+
+    --border: 0.22 0.015 30;
+    --input: 0.22 0.015 30;
+    --ring: 0.76 0.155 60;
+
+    --radius: 0.25rem;
+
+    --chart-1: 0.76 0.155 60;
+    --chart-2: 0.68 0.11 196;
+    --chart-3: 0.65 0.18 140;
+    --chart-4: 0.72 0.13 280;
+    --chart-5: 0.62 0.22 25;
+
+    --sidebar: 0.11 0.01 30;
+    --sidebar-foreground: 0.9 0.018 75;
+    --sidebar-primary: 0.76 0.155 60;
+    --sidebar-primary-foreground: 0.08 0.008 30;
+    --sidebar-accent: 0.68 0.11 196;
+    --sidebar-accent-foreground: 0.09 0.01 32;
+    --sidebar-border: 0.22 0.015 30;
+    --sidebar-ring: 0.76 0.155 60;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Outfit", sans-serif;
+    /* Subtle noise grain texture */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", serif;
+  }
+}
+
+/* Scanline overlay for CRT feel */
+@layer components {
+  .crt-scanlines::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.04) 2px,
+      rgba(0, 0, 0, 0.04) 4px
+    );
+    z-index: 9999;
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 8px oklch(var(--primary) / 0.35), 0 0 20px
+      oklch(var(--primary) / 0.12);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 12px oklch(var(--primary) / 0.6), 0 0 30px
+      oklch(var(--primary) / 0.2);
+  }
+
+  .station-card-hover {
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s
+      ease;
+  }
+
+  .station-card-hover:hover {
+    box-shadow: 0 0 10px oklch(var(--primary) / 0.2), 0 4px 16px
+      rgba(0, 0, 0, 0.4);
+    border-color: oklch(var(--primary) / 0.5);
+    transform: translateY(-1px);
+  }
+
+  .playing-card {
+    box-shadow: 0 0 14px oklch(var(--primary) / 0.35), 0 4px 16px
+      rgba(0, 0, 0, 0.5);
+    border-color: oklch(var(--primary) / 0.65) !important;
+  }
+
+  .genre-divider {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      oklch(var(--primary) / 0.4),
+      oklch(var(--primary) / 0.15),
+      transparent
+    );
+  }
+
+  .bounce-bar {
+    animation: bounceBar 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes bounceBar {
+    0% {
+      transform: scaleY(0.3);
+    }
+    100% {
+      transform: scaleY(1);
+    }
+  }
+}
